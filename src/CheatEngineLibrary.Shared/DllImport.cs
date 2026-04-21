@@ -16,7 +16,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// 获取当前所有正在运行的进程列表
     /// </summary>
     /// <param name="processes">接收进程列表</param>
-    [LibraryImport(DllName, EntryPoint = "IGetProcessList")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetProcessList")]
     internal static partial void GetProcessList(
         [MarshalAs(UnmanagedType.BStr)] out string processes);
 
@@ -25,7 +25,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// </summary>
     /// <param name="withSystemModules">是否包含系统模块</param>
     /// <param name="modules">接收模块列表</param>
-    [LibraryImport(DllName, EntryPoint = "IGetModuleList")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetModuleList")]
     internal static partial void GetModuleList(
         [MarshalAs(UnmanagedType.Bool)] bool withSystemModules,
         [MarshalAs(UnmanagedType.BStr)] out string modules);
@@ -34,7 +34,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// 打开指定 ProcessId 的进程，并清空 Virtual Cheat Table 
     /// </summary>
     /// <param name="pid">8 位十六进制字符串形式的进程标识符</param>
-    [LibraryImport(DllName, EntryPoint = "IOpenProcess")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "OpenProcess")]
     internal static partial void OpenProcess(
         [MarshalAs(UnmanagedType.BStr)] string pid);
 
@@ -43,7 +43,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
         char* psz,
         uint len);
 
-    [LibraryImport(DllName, EntryPoint = "IOpenProcess")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "OpenProcess")]
     private static partial void OpenProcess(ushort* pid);
 
     /// <inheritdoc cref="OpenProcess(string)"/>
@@ -76,7 +76,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <summary>
     /// 清空 Virtual Cheat Table 
     /// </summary>
-    [LibraryImport(DllName, EntryPoint = "IResetTable")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ResetTable")]
     internal static partial void ResetTable();
 
     /// <summary>
@@ -84,7 +84,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// </summary>
     /// <param name="name">脚本名称</param>
     /// <param name="script">脚本文本内容</param>
-    [LibraryImport(DllName, EntryPoint = "IAddScript")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "AddScript")]
     internal static partial void AddScript(
         [MarshalAs(UnmanagedType.BStr)] string name,
         [MarshalAs(UnmanagedType.BStr)] string script);
@@ -97,7 +97,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <remarks>
     /// 对脚本而言，激活表示注入或移除脚本；对内存记录而言，激活表示冻结或取消冻结
     /// </remarks>
-    [LibraryImport(DllName, EntryPoint = "IActivateRecord")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ActivateRecord")]
     internal static partial void ActivateRecord(
         int id,
         [MarshalAs(UnmanagedType.Bool)] bool activate);
@@ -106,7 +106,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// 从 Virtual Cheat Table 中移除脚本或地址记录
     /// </summary>
     /// <param name="id">从 0 开始的记录索引</param>
-    [LibraryImport(DllName, EntryPoint = "IRemoveRecord")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "RemoveRecord")]
     internal static partial void RemoveRecord(
         int id);
 
@@ -116,7 +116,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <remarks>
     /// 应在地址已被添加、赋值并激活后由定时器周期性调用
     /// </remarks>
-    [LibraryImport(DllName, EntryPoint = "IApplyFreeze")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ApplyFreeze")]
     internal static partial void ApplyFreeze();
 
     /// <summary>
@@ -124,7 +124,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// </summary>
     /// <param name="initialaddress">格式为 $XXXXXXXXXXXXXXXX 的地址字符串</param>
     /// <param name="vartype">与该地址关联的变量类型</param>
-    [LibraryImport(DllName, EntryPoint = "IAddAddressManually")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "AddAddressManually")]
     internal static partial void AddAddressManually(
         [MarshalAs(UnmanagedType.BStr)] string initialaddress,
         TVariableType vartype);
@@ -134,7 +134,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// </summary>
     /// <param name="id">记录索引</param>
     /// <param name="value">接收当前值</param>
-    [LibraryImport(DllName, EntryPoint = "IGetValue")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetValue")]
     internal static partial void GetValue(
         int id,
         [MarshalAs(UnmanagedType.BStr)] out string value);
@@ -145,7 +145,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <param name="id">记录索引</param>
     /// <param name="value">要写入的值</param>
     /// <param name="freezer">设置值时，是否将该记录按冻结项的方式更新</param>
-    [LibraryImport(DllName, EntryPoint = "ISetValue")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "SetValue")]
     internal static partial void SetValue(
         int id,
         [MarshalAs(UnmanagedType.BStr)] string value,
@@ -160,7 +160,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <param name="showAsSigned">返回值是否按有符号数格式化</param>
     /// <param name="bytesize">本机读取器使用的字节大小</param>
     /// <param name="value">接收格式化后的值</param>
-    [LibraryImport(DllName, EntryPoint = "IProcessAddress")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ProcessAddress")]
     internal static partial void ProcessAddress(
         [MarshalAs(UnmanagedType.BStr)] string address,
         TVariableType vartype,
@@ -176,14 +176,14 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <remarks>
     /// 对同一个扫描器实例，这个方法只应调用一次
     /// </remarks>
-    [LibraryImport(DllName, EntryPoint = "IInitMemoryScanner")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "InitMemoryScanner")]
     internal static partial void InitMemoryScanner(
         int handle);
 
     /// <summary>
     /// 开始一次新的扫描
     /// </summary>
-    [LibraryImport(DllName, EntryPoint = "INewScan")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "NewScan")]
     internal static partial void NewScan();
 
     /// <summary>
@@ -192,7 +192,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <param name="scanWritable">控制是否扫描可写页面</param>
     /// <param name="scanExecutable">控制是否扫描可执行页面</param>
     /// <param name="scanCopyOnWrite">控制是否扫描写时复制页面</param>
-    [LibraryImport(DllName, EntryPoint = "IConfigScanner")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ConfigScanner")]
     internal static partial void ConfigScanner(
         TScanRegionPreference scanWritable,
         TScanRegionPreference scanExecutable,
@@ -214,7 +214,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <param name="casesensitive">字符串扫描是否区分大小写</param>
     /// <param name="fastscanmethod">要使用的快速扫描模式</param>
     /// <param name="fastscanparameter">快速扫描参数，例如对齐值或尾数字过滤条件</param>
-    [LibraryImport(DllName, EntryPoint = "IFirstScan")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "FirstScan")]
     internal static partial void FirstScan(
         TScanOption scanOption,
         TVariableType variableType,
@@ -244,7 +244,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <param name="percentage">比较值是否应按百分比处理</param>
     /// <param name="compareToSavedScan">是否与已保存扫描结果比较，而不是与上一次结果比较</param>
     /// <param name="savedscanname">当启用 <paramref name="compareToSavedScan"/> 时使用的已保存扫描名称</param>
-    [LibraryImport(DllName, EntryPoint = "INextScan")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "NextScan")]
     internal static partial void NextScan(
         TScanOption scanOption,
         TRoundingType roundingtype,
@@ -262,7 +262,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// 获取当前扫描找到的地址数量
     /// </summary>
     /// <returns>找到的地址总数</returns>
-    [LibraryImport(DllName, EntryPoint = "ICountAddressesFound")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "CountAddressesFound")]
     internal static partial long CountAddressesFound();
 
     /// <summary>
@@ -274,7 +274,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <remarks>
     /// 本机结果列表按 1024 个地址为一页做缓冲，并围绕请求的索引进行加载
     /// </remarks>
-    [LibraryImport(DllName, EntryPoint = "IGetAddress")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetAddress")]
     internal static partial void GetAddress(
         long index,
         [MarshalAs(UnmanagedType.BStr)] out string address,
@@ -292,7 +292,7 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <remarks>
     /// 这个方法只应调用一次，并且应在扫描完成回调之后调用
     /// </remarks>
-    [LibraryImport(DllName, EntryPoint = "IInitFoundList")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "InitFoundList")]
     internal static partial void InitFoundList(
         TVariableType vartype,
         int varlength,
@@ -304,14 +304,14 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// <summary>
     /// 重置当前结果列表中的缓存值
     /// </summary>
-    [LibraryImport(DllName, EntryPoint = "IResetValues")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ResetValues")]
     internal static partial void ResetValues();
 
     /// <summary>
     /// 将结果列表重定位到指定索引附近，以便刷新内部分页缓存。
     /// </summary>
     /// <param name="index">要作为新基准的结果索引。</param>
-    [LibraryImport(DllName, EntryPoint = "IRebaseAddressList")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "RebaseAddressList")]
     internal static partial void RebaseAddressList(
         int index);
 
@@ -319,6 +319,6 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     /// 获取当前扫描结果关联的二进制大小
     /// </summary>
     /// <returns>本机扫描器返回的当前二进制大小</returns>
-    [LibraryImport(DllName, EntryPoint = "IGetBinarySize")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetBinarySize")]
     internal static partial int GetBinarySize();
 }

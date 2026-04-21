@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/1.Root/">
+    <File Path="src/CheatEngineLibrary.props" />
     <File Path="src/Directory.Build.props" />
     <File Path="src/Directory.Build.targets" />
   </Folder>
@@ -7,6 +8,7 @@
     <File Path="src/README.md" />
   </Folder>
   <Folder Name="/2.Libraries/">
+    <Project Path="src/CheatEngineLibrary.Shared.AotCall/CheatEngineLibrary.Shared.AotCall.shproj" Id="e5ba1dcb-ee26-44b5-84c8-27776a6a9d4e" />
     <Project Path="src/CheatEngineLibrary.Shared.DirectCall/CheatEngineLibrary.Shared.DirectCall.shproj" Id="038a6c30-3c02-4144-b521-a6bc64859ac2" />
     <Project Path="src/CheatEngineLibrary.Shared/CheatEngineLibrary.Shared.shproj" Id="8868e8e9-16e2-4edb-9ff7-3e3c872f0c07" />
     <Project Path="src/CheatEngineLibrary/CheatEngineLibrary.csproj" />

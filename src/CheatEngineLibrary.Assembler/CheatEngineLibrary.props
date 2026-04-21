@@ -1,0 +1,49 @@
+<Project>
+
+	<!-- 👇 条件编译不同的 RID -->
+	<Choose>
+		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\library\bin\ce-lib64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<!--<None Condition="Exists('$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x64\CELib_x64.dll')" Include="$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x64\CELib_x64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>-->
+			</ItemGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\library\bin\ce-lib32.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<!--<None Condition="Exists('$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x86\CELib_x86.dll')" Include="$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x86\CELib_x86.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>-->
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\library\bin\ce-lib32.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\library\bin\ce-lib64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<!--<None Condition="Exists('$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x64\CELib_x64.dll')" Include="$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x64\CELib_x64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x86\CELib_x86.dll')" Include="$(MSBuildThisFileDirectory)..\src\artifacts\pub\CheatEngineLibrary\win-x86\CELib_x86.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>-->
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+	<Import Project="$(MSBuildThisFileDirectory)CheatEngineLibrary.Shared\CheatEngineLibrary.Shared.projitems" Label="Shared" />
+
+	<Import Project="$(MSBuildThisFileDirectory)CheatEngineLibrary.Shared.DirectCall\CheatEngineLibrary.Shared.DirectCall.projitems" Label="Shared" />
+
+	<!--<Import Project="$(MSBuildThisFileDirectory)CheatEngineLibrary.Shared.AotCall\CheatEngineLibrary.Shared.AotCall.projitems" Label="Shared" />-->
+
+</Project>

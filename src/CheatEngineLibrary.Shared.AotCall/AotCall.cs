@@ -5,7 +5,8 @@ namespace CheatEngine;
 
 static partial class CheatEngineLibrary // 负责加载与当前进程架构匹配的 ce-lib${arch}.dll，直接使用 Pascal 生成的本机库
 {
-    const string prefixEntryPoint = "I";
+    const string prefixEntryPoint = "";
+    const string AotDllName = "CELib_";
 
     static readonly Lock SyncRoot = new();
     static nint libraryHandle;
@@ -18,11 +19,11 @@ static partial class CheatEngineLibrary // 负责加载与当前进程架构匹�
     static string GetPlatformLibraryName()
     {
 #if TARGET_X64
-        return $"{DllName}64";
+        return $"{AotDllName}x64";
 #elif TARGET_X86
-        return $"{DllName}32";
+        return $"{AotDllName}x32";
 #else
-        return Environment.Is64BitProcess ? $"{DllName}64" : $"{DllName}32";
+        return Environment.Is64BitProcess ? $"{AotDllName}x64" : $"{AotDllName}x32";
 #endif
     }
 
@@ -70,17 +71,6 @@ static partial class CheatEngineLibrary // 负责加载与当前进程架构匹�
     /// </summary>
     public static void UnloadEngine()
     {
-        return; // 会导致死锁，禁止卸载本机库
-
-        //lock (SyncRoot)
-        //{
-        //    if (libraryHandle == IntPtr.Zero)
-        //    {
-        //        return;
-        //    }
-
-        //    NativeLibrary.Free(libraryHandle);
-        //    libraryHandle = IntPtr.Zero;
-        //}
+        return; // 禁止卸载本机库，因为 AOT 库不不支持卸载
     }
 }

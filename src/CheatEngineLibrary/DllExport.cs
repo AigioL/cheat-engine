@@ -7,6 +7,8 @@ namespace CheatEngine;
 /// </summary>
 public static unsafe partial class DllExport
 {
+    const string prefixEntryPoint = "";
+
     [LibraryImport("oleaut32.dll", StringMarshalling = StringMarshalling.Utf16)]
     private static partial nint SysAllocStringLen(
         char* psz,
@@ -96,7 +98,7 @@ public static unsafe partial class DllExport
         CheatEngineLibrary.ProcessAddress(address, vartype, showashexadecimal, showAsSigned, bytesize, value);
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "InitMemoryScanner")]
+    [UnmanagedCallersOnly(EntryPoint = prefixEntryPoint + "nitMemoryScanner")]
     internal static void InitMemoryScanner(
         int handle)
     {
@@ -169,7 +171,7 @@ public static unsafe partial class DllExport
         CheatEngineLibrary.GetAddress(index, address, value);
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "InitFoundList")]
+    [UnmanagedCallersOnly(EntryPoint = prefixEntryPoint + "nitFoundList")]
     public static void InitFoundList(
         TVariableType vartype,
         int varlength,
@@ -203,31 +205,33 @@ public static unsafe partial class DllExport
 
 static unsafe partial class CheatEngineLibrary
 {
-    [LibraryImport(DllName, EntryPoint = "IGetProcessList")]
+    const string prefixEntryPoint = "I";
+
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetProcessList")]
     internal static partial void GetProcessList(ushort** processes);
 
-    [LibraryImport(DllName, EntryPoint = "IAddScript")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "AddScript")]
     internal static partial void AddScript(
         ushort* name,
         ushort* script);
 
-    [LibraryImport(DllName, EntryPoint = "IAddAddressManually")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "AddAddressManually")]
     internal static partial void AddAddressManually(
         ushort* initialaddress,
         TVariableType vartype);
 
-    [LibraryImport(DllName, EntryPoint = "IGetValue")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetValue")]
     internal static partial void GetValue(
         int id,
         ushort** value);
 
-    [LibraryImport(DllName, EntryPoint = "ISetValue")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "SetValue")]
     internal static partial void SetValue(
         int id,
         ushort* value,
         [MarshalAs(UnmanagedType.Bool)] bool freezer);
 
-    [LibraryImport(DllName, EntryPoint = "IProcessAddress")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "ProcessAddress")]
     internal static partial void ProcessAddress(
         ushort* address,
         TVariableType vartype,
@@ -236,7 +240,7 @@ static unsafe partial class CheatEngineLibrary
         int bytesize,
         ushort** value);
 
-    [LibraryImport(DllName, EntryPoint = "IFirstScan")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "FirstScan")]
     internal static partial void FirstScan(
         TScanOption scanOption,
         TVariableType variableType,
@@ -252,7 +256,7 @@ static unsafe partial class CheatEngineLibrary
         TFastScanMethod fastscanmethod,
         ushort* fastscanparameter);
 
-    [LibraryImport(DllName, EntryPoint = "INextScan")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "NextScan")]
     internal static partial void NextScan(
         TScanOption scanOption,
         TRoundingType roundingtype,
@@ -266,7 +270,7 @@ static unsafe partial class CheatEngineLibrary
         [MarshalAs(UnmanagedType.Bool)] bool compareToSavedScan,
         ushort* savedscanname);
 
-    [LibraryImport(DllName, EntryPoint = "IGetAddress")]
+    [LibraryImport(DllName, EntryPoint = prefixEntryPoint + "GetAddress")]
     internal static partial void GetAddress(
         long index,
         ushort** address,

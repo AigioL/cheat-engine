@@ -16,36 +16,6 @@
 		</Compile>
 	</ItemGroup>
 
-	<!-- 👇 条件编译不同的 RID -->
-	<Choose>
-		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
-			<ItemGroup>
-				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll">
-					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				</None>
-			</ItemGroup>
-		</When>
-		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
-			<ItemGroup>
-				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll">
-					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				</None>
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll">
-					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				</None>
-				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll">
-					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-				</None>
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-
-	<Import Project="..\CheatEngineLibrary.Shared\CheatEngineLibrary.Shared.projitems" Label="Shared" />
-
-	<Import Project="..\CheatEngineLibrary.Shared.DirectCall\CheatEngineLibrary.Shared.DirectCall.projitems" Label="Shared" />
+	<Import Project="..\CheatEngineLibrary.props" />
 
 </Project>
