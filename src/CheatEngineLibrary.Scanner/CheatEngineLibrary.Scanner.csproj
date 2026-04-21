@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<RootNamespace>Scanner</RootNamespace>
+		<AssemblyName>$(RootNamespace)</AssemblyName>
+		<ApplicationManifest>$(MSBuildThisFileDirectory)Properties\app.manifest</ApplicationManifest>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)..\AssemblyInfo.Attribute.cs">
+			<LinkBase>Properties</LinkBase>
+		</Compile>
+	</ItemGroup>
+
+	<!-- 👇 条件编译不同的 RID -->
+	<Choose>
+		<When Condition="$(RuntimeIdentifier.Contains('-x64'))">
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+			</ItemGroup>
+		</When>
+		<When Condition="$(RuntimeIdentifier.Contains('-x86'))">
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib32.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+				<None Condition="Exists('$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll')" Include="$(MSBuildThisFileDirectory)..\..\library\bin\ce-lib64.dll">
+					<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+				</None>
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+	<Import Project="..\CheatEngineLibrary.Shared\CheatEngineLibrary.Shared.projitems" Label="Shared" />
+
+	<Import Project="..\CheatEngineLibrary.Shared.DirectCall\CheatEngineLibrary.Shared.DirectCall.projitems" Label="Shared" />
+
+</Project>

@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/1.Root/">
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/2.Document/">
+    <File Path="src/README.md" />
+  </Folder>
+  <Folder Name="/2.Libraries/">
+    <Project Path="src/CheatEngineLibrary.Shared.DirectCall/CheatEngineLibrary.Shared.DirectCall.shproj" Id="038a6c30-3c02-4144-b521-a6bc64859ac2" />
+    <Project Path="src/CheatEngineLibrary.Shared/CheatEngineLibrary.Shared.shproj" Id="8868e8e9-16e2-4edb-9ff7-3e3c872f0c07" />
+    <Project Path="src/CheatEngineLibrary/CheatEngineLibrary.csproj" />
+  </Folder>
+  <Folder Name="/3.EntryPoint/" />
+  <Folder Name="/4.Tools/">
+    <Project Path="src/CheatEngineLibrary.Assembler/CheatEngineLibrary.Assembler.csproj" Id="76cfa752-0173-4e62-be75-113b4edc43bb" />
+    <Project Path="src/CheatEngineLibrary.Scanner/CheatEngineLibrary.Scanner.csproj" Id="9a0cb87b-4306-4290-83ba-4c5111e4f322" />
+  </Folder>
+  <Folder Name="/5.UnitTest/" />
+</Solution>
