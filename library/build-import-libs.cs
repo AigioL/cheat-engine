@@ -12,6 +12,33 @@ internal sealed record Options(string Architecture, bool BuildDll, bool ShowUsag
 internal static class Program
 {
     private static readonly Regex ExportLineRegex = new(@"^\s*\[\s*\d+\]\s+(.+?)\s*$", RegexOptions.Compiled);
+    // Win32 callers expect stdcall-decorated import symbols even though the DLL exports are undecorated.
+    private static readonly IReadOnlyDictionary<string, int> X86StdCallByteCounts = new Dictionary<string, int>(StringComparer.Ordinal)
+    {
+        ["IGetModuleList"] = 8,
+        ["IGetProcessList"] = 4,
+        ["IOpenProcess"] = 4,
+        ["IResetTable"] = 0,
+        ["IAddScript"] = 8,
+        ["IActivateRecord"] = 8,
+        ["IRemoveRecord"] = 4,
+        ["IApplyFreeze"] = 0,
+        ["IAddAddressManually"] = 8,
+        ["IGetValue"] = 8,
+        ["ISetValue"] = 12,
+        ["IProcessAddress"] = 24,
+        ["IInitMemoryScanner"] = 4,
+        ["INewScan"] = 0,
+        ["IConfigScanner"] = 12,
+        ["IFirstScan"] = 52,
+        ["INextScan"] = 44,
+        ["ICountAddressesFound"] = 0,
+        ["IGetAddress"] = 16,
+        ["IInitFoundList"] = 24,
+        ["IResetValues"] = 0,
+        ["IRebaseAddressList"] = 4,
+        ["IGetBinarySize"] = 0
+    };
     private static readonly string[] VisualStudioRoots =
     [
         @"C:\Program Files\Microsoft Visual Studio",
@@ -332,7 +359,7 @@ internal static class Program
         StripBinary(stripExe, dllPath);
 
         var exports = GetExports(objdumpExe, dllPath);
-        WriteDefFile(dllPath, defPath, exports);
+        WriteDefFile(dllPath, defPath, exports, architectureName);
 
         try
         {
@@ -524,15 +551,32 @@ internal static class Program
         return exports;
     }
 
-    private static void WriteDefFile(string dllPath, string defPath, IEnumerable<string> exports)
+    private static void WriteDefFile(string dllPath, string defPath, IEnumerable<string> exports, string architectureName)
     {
+        var exportList = exports.ToList();
         var lines = new List<string>
         {
             $"LIBRARY {Path.GetFileName(dllPath)}",
             "EXPORTS"
         };
 
-        lines.AddRange(exports.Select(exportName => $"    {exportName}"));
+        foreach (var exportName in exportList)
+        {
+            lines.Add($"    {exportName}");
+
+            if (!string.Equals(architectureName, "x86", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (!X86StdCallByteCounts.TryGetValue(exportName, out var byteCount))
+            {
+                throw new InvalidOperationException($"Missing x86 stdcall byte count for export {exportName}.");
+            }
+
+            lines.Add($"    {exportName}@{byteCount}={exportName}");
+        }
+
         File.WriteAllLines(defPath, lines, Encoding.ASCII);
     }
 
