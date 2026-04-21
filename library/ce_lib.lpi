@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="ce-lib"/>
+      <ResourceType Value="res"/>
+      <UseAppBundle Value="False"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <MajorVersionNr Value="1"/>
+      <MinorVersionNr Value="3"/>
+      <RevisionNr Value="20421"/>
+      <BuildNr Value="10945"/>
+      <Language Value="0804"/>
+      <StringTable FileVersion="1.3.20421.10945" ProductVersion="1.3.20421.10945"/>
+    </VersionInfo>
+    <BuildModes Count="2" Active="Release 64-Bit">
+      <Item1 Name="Release 64-Bit" Default="True">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\ce-lib64"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value=".;dbk32;..\Cheat Engine;..\Cheat Engine\dbk32;..\Cheat Engine\lua;..\Cheat Engine\jvdesign;..\Cheat Engine\betterControls;..\Cheat Engine\VEHDebug;..\Cheat Engine\Common"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <Style Value="1"/>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+              <UseExternalDbgSyms Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowNotes Value="False"/>
+              <ShowHints Value="False"/>
+            </Verbosity>
+            <CompilerMessages>
+              <MsgFileName Value=""/>
+              <IgnoredMessages idx6058="True" idx5066="True" idx5043="True" idx4105="True" idx4104="True" idx3177="True" idx3175="True" idx2005="True"/>
+            </CompilerMessages>
+            <CustomOptions Value="-WB00400000&#10;-dNDEBUG&#10;-dDBVMFORAMDISWORKING&#10;-dTHREADNAMESUPPORT&#10;-donebytejumps&#10;-dNoODS&#10;-dlaztrunk"/>
+          </Other>
+        </CompilerOptions>
+      </Item1>
+      <Item2 Name="Release 32-Bit">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\ce-lib32"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value=".;dbk32;..\Cheat Engine;..\Cheat Engine\dbk32;..\Cheat Engine\lua;..\Cheat Engine\jvdesign;..\Cheat Engine\betterControls;..\Cheat Engine\VEHDebug;..\Cheat Engine\Common"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <Style Value="1"/>
+            <SyntaxOptions>
+              <SyntaxMode Value="Delphi"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <ExecutableType Value="Library"/>
+            </Options>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <MsgFileName Value=""/>
+              <IgnoredMessages idx6058="True" idx5066="True" idx5043="True" idx4105="True" idx4104="True" idx3177="True" idx3175="True" idx2005="True"/>
+            </CompilerMessages>
+            <CustomOptions Value="-dNDEBUG&#10;-dDBVMFORAMDISWORKING&#10;-dTHREADNAMESUPPORT&#10;-donebytejumps&#10;-dNoODS&#10;-dlaztrunk"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+        <WorkingDirectory Value="$ProjPath()"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="9">
+      <Item1>
+        <PackageName Value="laz.virtualtreeview_package"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="SQLDBLaz"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LazControls"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="LCLBase"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="IDEIntf"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="CodeTools"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="SynEdit"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
+    </RequiredPackages>
+    <Units Count="6">
+      <Unit0>
+        <Filename Value="ce_lib.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ce_lib"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="connector.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="connector"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="AddressChangeUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="AddressChangeUnit"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="MemoryRecordDatabase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordDatabase"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="scanner.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="scanner"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="settings"/>
+      </Unit5>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="bin\ce-lib64"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value=".;dbk32;..\Cheat Engine;..\Cheat Engine\dbk32;..\Cheat Engine\lua;..\Cheat Engine\jvdesign;..\Cheat Engine\betterControls;..\Cheat Engine\VEHDebug;..\Cheat Engine\Common"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Parsing>
+      <Style Value="1"/>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <SmartLinkUnit Value="True"/>
+      <TargetCPU Value="x86_64"/>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
+    <Linking>
+      <LinkSmart Value="True"/>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <MsgFileName Value=""/>
+      </CompilerMessages>
+      <CustomOptions Value="-WB00400000&#10;-dNDEBUG&#10;-dDBVMFORAMDISWORKING&#10;-dTHREADNAMESUPPORT&#10;-donebytejumps&#10;-dNoODS&#10;-dlaztrunk"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
