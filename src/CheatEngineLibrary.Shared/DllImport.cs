@@ -38,6 +38,41 @@ static unsafe partial class CheatEngineLibrary // 提供 ce-lib${arch}.dll 的�
     internal static partial void OpenProcess(
         [MarshalAs(UnmanagedType.BStr)] string pid);
 
+    [LibraryImport("oleaut32.dll", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial nint SysAllocStringLen(
+        char* psz,
+        uint len);
+
+    [LibraryImport(DllName, EntryPoint = "IOpenProcess")]
+    private static partial void OpenProcess(ushort* pid);
+
+    /// <inheritdoc cref="OpenProcess(string)"/>
+    internal static void OpenProcess(int pid)
+    {
+        const int Length = 8;
+        char* chars = stackalloc char[Length];
+
+        uint value = unchecked((uint)pid);
+
+        for (int i = Length - 1; i >= 0; i--)
+        {
+            uint digit = value & 0xF;
+            chars[i] = (char)(digit < 10 ? '0' + digit : 'A' + (digit - 10));
+            value >>= 4;
+        }
+
+        nint bstr = SysAllocStringLen(chars, 8);
+        try
+        {
+            Buffer.MemoryCopy(chars, (void*)bstr, Length * sizeof(char), Length * sizeof(char));
+            OpenProcess((ushort*)bstr);
+        }
+        finally
+        {
+            Marshal.FreeBSTR(bstr);
+        }
+    }
+
     /// <summary>
     /// 清空 Virtual Cheat Table 
     /// </summary>

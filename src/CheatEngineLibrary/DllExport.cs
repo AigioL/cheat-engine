@@ -24,33 +24,6 @@ public static unsafe partial class DllExport
         CheatEngineLibrary.GetProcessList(processes);
     }
 
-    [UnmanagedCallersOnly(EntryPoint = "OpenProcess")]
-    internal static void OpenProcess(int pid)
-    {
-        const int Length = 8;
-        char* chars = stackalloc char[Length];
-
-        uint value = unchecked((uint)pid);
-
-        for (int i = Length - 1; i >= 0; i--)
-        {
-            uint digit = value & 0xF;
-            chars[i] = (char)(digit < 10 ? '0' + digit : 'A' + (digit - 10));
-            value >>= 4;
-        }
-
-        IntPtr bstr = SysAllocStringLen(chars, 8);
-        try
-        {
-            Buffer.MemoryCopy(chars, (void*)bstr, Length * sizeof(char), Length * sizeof(char));
-            CheatEngineLibrary.OpenProcess((ushort*)bstr);
-        }
-        finally
-        {
-            Marshal.FreeBSTR(bstr);
-        }
-    }
-
     [UnmanagedCallersOnly(EntryPoint = "ResetTable")]
     public static void ResetTable()
     {
@@ -232,9 +205,6 @@ static unsafe partial class CheatEngineLibrary
 {
     [LibraryImport(DllName, EntryPoint = "IGetProcessList")]
     internal static partial void GetProcessList(ushort** processes);
-
-    [LibraryImport(DllName, EntryPoint = "IOpenProcess")]
-    internal static partial void OpenProcess(ushort* pid);
 
     [LibraryImport(DllName, EntryPoint = "IAddScript")]
     internal static partial void AddScript(
